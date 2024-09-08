@@ -1,0 +1,41 @@
+spring:
+  kafka:
+    bootstrapAddress: PLAINTEXT://localhost:9092
+    groupId: car-comparision_consumer_group
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      idle-timeout: 10000
+      maximum-pool-size: 20
+      minimum-idle: 10
+    dataSourceClassName: com.myslq.jdbc.jdbc2.optional.MysqlDataSource
+    url: jdbc:mysql://127.0.0.1:3306/car_comparision?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password:
+    cachePrepStmts: true
+    prepStmlCacheSize: 250
+    prepStmtCacheSqlLimit: 2048
+    useServerPrepStmts: true
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    database: MYSQL
+    openInView: false
+    show_sql: false
+    generate-ddl: true
+    hibernate:
+      naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+      ddl-auto: update
+      generate_statistics: false
+    properties:
+      hibernate.boot.allow_jdbc_metadata_access: false
+      hibernate.jdbc.time_zone: Asia/Kolkata
+
+  redis:
+    hostName: localhost
+    pass:
+    port: 6379
+    pool:
+      maxTotal: 10
+      minIdle: 10
+      maxIdle: 10
