@@ -2,8 +2,8 @@ package com.gk.car.data.services.impl;
 
 import com.gk.car.commons.dto.CarSimilarityUpdateDto;
 import com.gk.car.data.dto.AddCarDto;
-import com.gk.car.data.dto.CarFeatureDto;
-import com.gk.car.data.dto.CarVariantDto;
+import com.gk.car.data.dto.AddCarFeatureDto;
+import com.gk.car.data.dto.AddCarVariantDto;
 import com.gk.car.commons.entities.CarFeatureEntity;
 import com.gk.car.commons.entities.CarMetadataEntity;
 import com.gk.car.commons.entities.CarVariantEntity;
@@ -55,7 +55,7 @@ public class CarManagementServiceImpl implements CarManagementService {
     List<CarVariantEntity> variants = new ArrayList<>();
     List<CarFeatureEntity> carFeatures = new ArrayList<>();
     if( Objects.nonNull(addCarDto.getVariants()) ) {
-      for(CarVariantDto carVariantDto : addCarDto.getVariants()) {
+      for(AddCarVariantDto carVariantDto : addCarDto.getVariants()) {
         CarVariantEntity carVariantEntity = CarVariantEntity.builder()
             .carId(carMetadataEntity.getCarId())
             .variantName(carVariantDto.getVariantName())
@@ -65,7 +65,7 @@ public class CarManagementServiceImpl implements CarManagementService {
         variants.add(carVariantEntity);
 
         if(Objects.nonNull(carVariantDto.getFeatures())) {
-          for(CarFeatureDto carFeatureDto : carVariantDto.getFeatures()) {
+          for(AddCarFeatureDto carFeatureDto : carVariantDto.getFeatures()) {
             Optional<FeatureEntity> featureEntityOptional = featureRepository.findByFeatureId(carFeatureDto.getFeatureId());
             if(featureEntityOptional.isEmpty()) {
               throw new GenericServiceException(ErrorCode.INVALID_FEATURE);

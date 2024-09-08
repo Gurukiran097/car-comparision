@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface CarFeatureRepository extends JpaRepository<CarFeatureEntity, Long> {
 
   List<CarFeatureEntity> findAllByCarVariantIdIn(List<String> carVariants);
+
+  List<CarFeatureEntity> findAllByCarVariantId(String carVariantId);
 }

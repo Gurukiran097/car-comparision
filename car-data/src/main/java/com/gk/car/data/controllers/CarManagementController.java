@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/api/car/")
+@RequestMapping("/v1/api/management/car")
 @RequiredArgsConstructor
-public class CarController {
+public class CarManagementController {
 
   private final CarManagementService carManagementService;
 
@@ -21,9 +21,6 @@ public class CarController {
     carManagementService.addCar(addCarDto);
   }
 
-  @GetMapping(value = "/health")
-  public String health() {
-    return "isAlive";
-  }
+
 
 }

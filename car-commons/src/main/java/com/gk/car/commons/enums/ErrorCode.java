@@ -13,6 +13,9 @@ public enum ErrorCode {
   INVALID_FEATURE_CONFIGURATION("INVALID_FEATURE_CONFIGURATION", "Feature data is invalid", HttpStatus.BAD_REQUEST),
   INVALID_FILTER("INVALID_FILTER", "Filter Id is invalid", HttpStatus.BAD_REQUEST),
   INVALID_SIMILARITY_STRATEGY("INVALID_SIMILARITY_STRATEGY", "Similarity strategy not present", HttpStatus.BAD_REQUEST),
+  INVALID_CAR_VARIANT_ID("INVALID_CAR_VARIANT_ID", "Invalid car variant Id", HttpStatus.BAD_REQUEST),
+  INVALID_CAR_VARIANT_SIZE_MIN("INVALID_CAR_VARIANT_SIZE_MIN", "Car variants should have atleast 2 cars", HttpStatus.BAD_REQUEST),
+  INVALID_CAR_VARIANT_SIZE_MAX("INVALID_CAR_VARIANT_SIZE_MIN", "Car variants should have at max 3 cars", HttpStatus.BAD_REQUEST),
   UNKNOWN_ERROR("UNKNOWN_ERROR", "Error not known", HttpStatus.INTERNAL_SERVER_ERROR)
   ;
 

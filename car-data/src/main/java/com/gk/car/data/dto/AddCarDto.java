@@ -14,6 +14,6 @@ public class AddCarDto {
   private String carName;
   private String manufacturer;
   private CarType carType;
-  private List<CarVariantDto> variants;
+  private List<AddCarVariantDto> variants;
 
 }
