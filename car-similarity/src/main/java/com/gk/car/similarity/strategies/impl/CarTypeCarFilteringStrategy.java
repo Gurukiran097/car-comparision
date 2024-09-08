@@ -1,5 +1,7 @@
 package com.gk.car.similarity.strategies.impl;
 
+import static com.gk.car.similarity.constants.Constants.CAR_TYPE_FILTER_STRATEGY;
+
 import com.gk.car.commons.entities.CarMetadataEntity;
 import com.gk.car.commons.entities.CarVariantEntity;
 import com.gk.car.commons.enums.CarType;
@@ -14,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
-@Component
+@Component(CAR_TYPE_FILTER_STRATEGY)
 public class CarTypeCarFilteringStrategy implements CarFilteringStrategy {
 
   private final CarMetadataRepository carMetadataRepository;

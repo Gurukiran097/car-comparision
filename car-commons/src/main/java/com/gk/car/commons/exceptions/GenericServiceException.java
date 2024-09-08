@@ -1,4 +1,4 @@
-package com.gk.car.data.exceptions;
+package com.gk.car.commons.exceptions;
 
 import com.gk.car.commons.enums.ErrorCode;
 import lombok.Getter;
@@ -14,5 +14,11 @@ public class GenericServiceException extends RuntimeException {
     super(errorCode.getMessage());
     this.errorCode = errorCode;
     log.error("ErrorCode : {}, Message : {}", errorCode.getErrorCode(), errorCode.getMessage());
+  }
+
+  public GenericServiceException(ErrorCode errorCode, String errorMessage) {
+    super(errorMessage);
+    this.errorCode = errorCode;
+    log.error("ErrorCode : {}, Message : {}", errorCode.getErrorCode(), errorMessage);
   }
 }

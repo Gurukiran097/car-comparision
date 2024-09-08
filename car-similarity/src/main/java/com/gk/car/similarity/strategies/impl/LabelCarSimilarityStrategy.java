@@ -1,7 +1,8 @@
 package com.gk.car.similarity.strategies.impl;
 
+import static com.gk.car.similarity.constants.Constants.LABEL_SIMILARITY_STRATEGY;
+
 import com.gk.car.commons.entities.CarFeatureEntity;
-import com.gk.car.commons.entities.CarVariantEntity;
 import com.gk.car.commons.enums.FeatureType;
 import com.gk.car.commons.repository.CarFeatureRepository;
 import com.gk.car.similarity.dto.CarSimilarityInputDto;
@@ -22,9 +23,9 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
-public class LabelBasedCarSimilarityStrategy implements CarSimilarityStrategy {
+@Component(LABEL_SIMILARITY_STRATEGY)
+public class LabelCarSimilarityStrategy implements CarSimilarityStrategy {
 
   private final CarFeatureRepository carFeatureRepository;
 

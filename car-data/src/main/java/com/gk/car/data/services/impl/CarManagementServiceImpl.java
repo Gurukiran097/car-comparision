@@ -1,5 +1,6 @@
 package com.gk.car.data.services.impl;
 
+import com.gk.car.commons.dto.CarSimilarityUpdateDto;
 import com.gk.car.data.dto.AddCarDto;
 import com.gk.car.data.dto.CarFeatureDto;
 import com.gk.car.data.dto.CarVariantDto;
@@ -9,7 +10,7 @@ import com.gk.car.commons.entities.CarVariantEntity;
 import com.gk.car.commons.entities.FeatureEntity;
 import com.gk.car.commons.enums.ErrorCode;
 import com.gk.car.commons.enums.FeatureType;
-import com.gk.car.data.exceptions.GenericServiceException;
+import com.gk.car.commons.exceptions.GenericServiceException;
 import com.gk.car.commons.repository.CarFeatureRepository;
 import com.gk.car.commons.repository.CarMetadataRepository;
 import com.gk.car.commons.repository.CarVariantRepository;
@@ -86,5 +87,10 @@ public class CarManagementServiceImpl implements CarManagementService {
     carMetadataRepository.save(carMetadataEntity);
     carVariantRepository.saveAll(variants);
     carFeatureRepository.saveAll(carFeatures);
+  }
+
+  @Override
+  public void updateSimilarCars(CarSimilarityUpdateDto carSimilarityUpdateDto) {
+
   }
 }

@@ -1,9 +1,8 @@
 package com.gk.car.data.handlers;
 
-import com.gk.car.data.exceptions.GenericServiceException;
+import com.gk.car.commons.exceptions.GenericServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
