@@ -1,10 +1,12 @@
-package com.gk.car.data.repository;
+package com.gk.car.commons.repository;
 
-import com.gk.car.data.entities.CarMetadataEntity;
-import com.gk.car.data.entities.CarVariantEntity;
+import com.gk.car.commons.entities.CarVariantEntity;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CarVariantRepository extends JpaRepository<CarVariantEntity, Long> {
+
+  List<CarVariantEntity> findAllByCarIdIn(List<String> cars);
 }

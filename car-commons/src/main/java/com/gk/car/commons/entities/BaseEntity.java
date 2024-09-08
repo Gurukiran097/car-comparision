@@ -1,4 +1,4 @@
-package com.gk.car.data.entities;
+package com.gk.car.commons.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

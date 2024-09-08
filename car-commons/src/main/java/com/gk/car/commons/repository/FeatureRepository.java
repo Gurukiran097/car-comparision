@@ -1,7 +1,6 @@
-package com.gk.car.data.repository;
+package com.gk.car.commons.repository;
 
-import com.gk.car.data.entities.CarMetadataEntity;
-import com.gk.car.data.entities.FeatureEntity;
+import com.gk.car.commons.entities.FeatureEntity;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package com.gk.car.data.enums;
+package com.gk.car.commons.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

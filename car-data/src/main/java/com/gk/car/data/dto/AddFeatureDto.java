@@ -1,6 +1,6 @@
 package com.gk.car.data.dto;
 
-import com.gk.car.data.enums.FeatureType;
+import com.gk.car.commons.enums.FeatureType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

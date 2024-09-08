@@ -1,8 +1,8 @@
 package com.gk.car.data.services.impl;
 
 import com.gk.car.data.dto.AddFeatureDto;
-import com.gk.car.data.entities.FeatureEntity;
-import com.gk.car.data.repository.FeatureRepository;
+import com.gk.car.commons.entities.FeatureEntity;
+import com.gk.car.commons.repository.FeatureRepository;
 import com.gk.car.data.services.FeatureService;
 import com.gk.car.data.utils.IdUtil;
 import lombok.RequiredArgsConstructor;

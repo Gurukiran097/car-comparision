@@ -11,6 +11,14 @@
 
     <artifactId>car-data</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.gk.car</groupId>
+            <artifactId>car-commons</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>

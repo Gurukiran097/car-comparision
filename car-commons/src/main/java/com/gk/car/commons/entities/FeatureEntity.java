@@ -1,5 +1,7 @@
-package com.gk.car.data.entities;
+package com.gk.car.commons.entities;
 
+
+import com.gk.car.commons.enums.FeatureType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -16,16 +18,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-    name = "car_feature"
+    name = "features"
 )
-public class CarFeatureEntity extends BaseEntity {
-
-  @Column(name = "car_variant_id")
-  private String carVariantId;
+public class FeatureEntity extends BaseEntity{
 
   @Column(name = "feature_id")
   private String featureId;
 
-  @Column(name = "feature_value")
-  private int featureValue;
+  @Column(name = "feature_name")
+  private String featureName;
+
+  @Column(name = "feature_type")
+  private FeatureType featureType;
+
 }

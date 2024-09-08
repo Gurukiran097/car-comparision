@@ -1,10 +1,8 @@
 package com.gk.car.data.exceptions;
 
-import com.gk.car.data.enums.ErrorCode;
+import com.gk.car.commons.enums.ErrorCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Slf4j
 @Getter

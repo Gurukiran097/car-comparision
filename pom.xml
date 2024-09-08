@@ -17,6 +17,8 @@
 	<modules>
 		<module>car-server</module>
 		<module>car-data</module>
+		<module>car-similarity</module>
+		<module>car-commons</module>
 	</modules>
 
 	<properties>

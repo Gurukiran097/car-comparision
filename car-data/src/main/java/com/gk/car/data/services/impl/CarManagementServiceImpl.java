@@ -3,17 +3,17 @@ package com.gk.car.data.services.impl;
 import com.gk.car.data.dto.AddCarDto;
 import com.gk.car.data.dto.CarFeatureDto;
 import com.gk.car.data.dto.CarVariantDto;
-import com.gk.car.data.entities.CarFeatureEntity;
-import com.gk.car.data.entities.CarMetadataEntity;
-import com.gk.car.data.entities.CarVariantEntity;
-import com.gk.car.data.entities.FeatureEntity;
-import com.gk.car.data.enums.ErrorCode;
-import com.gk.car.data.enums.FeatureType;
+import com.gk.car.commons.entities.CarFeatureEntity;
+import com.gk.car.commons.entities.CarMetadataEntity;
+import com.gk.car.commons.entities.CarVariantEntity;
+import com.gk.car.commons.entities.FeatureEntity;
+import com.gk.car.commons.enums.ErrorCode;
+import com.gk.car.commons.enums.FeatureType;
 import com.gk.car.data.exceptions.GenericServiceException;
-import com.gk.car.data.repository.CarFeatureRepository;
-import com.gk.car.data.repository.CarMetadataRepository;
-import com.gk.car.data.repository.CarVariantRepository;
-import com.gk.car.data.repository.FeatureRepository;
+import com.gk.car.commons.repository.CarFeatureRepository;
+import com.gk.car.commons.repository.CarMetadataRepository;
+import com.gk.car.commons.repository.CarVariantRepository;
+import com.gk.car.commons.repository.FeatureRepository;
 import com.gk.car.data.services.CarManagementService;
 import com.gk.car.data.utils.IdUtil;
 import jakarta.transaction.Transactional;
@@ -70,6 +70,7 @@ public class CarManagementServiceImpl implements CarManagementService {
             CarFeatureEntity carFeatureEntity = CarFeatureEntity.builder()
                 .carVariantId(carVariantEntity.getVariantId())
                 .featureId(feature.getFeatureId())
+                .featureType(feature.getFeatureType())
                 .build();
             if(FeatureType.NUMERICAL.equals(feature.getFeatureType())) {
               if(Objects.isNull(carFeatureDto.getFeatureValue())) {

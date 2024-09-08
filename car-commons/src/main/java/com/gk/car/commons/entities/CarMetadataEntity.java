@@ -1,6 +1,6 @@
-package com.gk.car.data.entities;
+package com.gk.car.commons.entities;
 
-import com.gk.car.data.enums.CarType;
+import com.gk.car.commons.enums.CarType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
