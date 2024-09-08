@@ -31,6 +31,7 @@ public class CarSimilarityUpdateListener {
     try {
       log.info("Received message in topic {}, message {}", KafkaConstants.SIMILAR_CARS_TOPIC, message);
       carManagementService.updateSimilarCars(objectMapper.readValue(message, CarSimilarityUpdateDto.class));
+      acknowledgment.acknowledge();
     } catch (JsonProcessingException exception) {
       throw new GenericServiceException(ErrorCode.UNKNOWN_ERROR, exception.getMessage());
     }

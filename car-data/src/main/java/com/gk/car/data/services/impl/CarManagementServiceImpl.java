@@ -15,6 +15,7 @@ import com.gk.car.commons.repository.CarFeatureRepository;
 import com.gk.car.commons.repository.CarMetadataRepository;
 import com.gk.car.commons.repository.CarVariantRepository;
 import com.gk.car.commons.repository.FeatureRepository;
+import com.gk.car.data.repository.RedisRepository;
 import com.gk.car.data.services.CarManagementService;
 import com.gk.car.data.utils.IdUtil;
 import jakarta.transaction.Transactional;
@@ -38,6 +39,8 @@ public class CarManagementServiceImpl implements CarManagementService {
   private final CarFeatureRepository carFeatureRepository;
 
   private final FeatureRepository featureRepository;
+
+  private final RedisRepository redisRepository;
 
 
   @Override
@@ -91,6 +94,6 @@ public class CarManagementServiceImpl implements CarManagementService {
 
   @Override
   public void updateSimilarCars(CarSimilarityUpdateDto carSimilarityUpdateDto) {
-
+    redisRepository.clearAndSave(carSimilarityUpdateDto.getCarVariantId(), carSimilarityUpdateDto.getSimilarVariants());
   }
 }
