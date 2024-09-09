@@ -1,9 +1,10 @@
 package com.gk.car.commons.entities;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
@@ -23,11 +24,10 @@ public class BaseEntity implements Serializable {
   private int version;
 
   @Column(name = "created_At")
-  @CreationTimestamp
-
-  private Long createdAt;
+  @CreatedDate
+  private LocalDateTime createdAt;
 
   @Column(name = "updated_At")
-  @UpdateTimestamp
-  private Long updatedAt;
+  @LastModifiedDate
+  private LocalDateTime updatedAt;
 }

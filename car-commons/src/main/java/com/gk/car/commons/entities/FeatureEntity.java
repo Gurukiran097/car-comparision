@@ -28,6 +28,12 @@ public class FeatureEntity extends BaseEntity{
   @Column(name = "feature_name")
   private String featureName;
 
+  @Column(name = "feature_key")
+  private String featureKey;
+
+  @Column(name = "feature_category")
+  private String featureCategory;
+
   @Column(name = "feature_type")
   private FeatureType featureType;
 
