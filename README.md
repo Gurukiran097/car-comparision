@@ -2,7 +2,7 @@
 Car Comparision Module
 
 
-![High Level Design](sequences/images/Car_management_HLD.svg)
+![High Level Design](sequences/images/Car_management_HLD.svg "High Level Design")
 
 
 ![Add Car Sequence Diagram](sequences/images/AddCar.svg)
