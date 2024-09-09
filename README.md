@@ -1,27 +1,30 @@
 # car-comparision
 Car Comparision Module
 
-Add Car Sequence Diagram
-![](sequences/images/AddCar.svg)
+High Level Design\n
+![](sequences/images/Car_Management_HLD.svg)\n
 
-Add Car Feature Diagram
-![](sequences/images/AddCarFeature.svg)
+Add Car Sequence Diagram\n
+![](sequences/images/AddCar.svg)\n
 
-Add Car Variant Diagram
-![](sequences/images/AddCarVariant.svg)
+Add Car Feature Diagram\n
+![](sequences/images/AddCarFeature.svg)\n
 
-Add Feature Diagram
-![](sequences/images/AddFeature.svg)
+Add Car Variant Diagram\n
+![](sequences/images/AddCarVariant.svg)\n
 
-Get Car Sequence Diagram
-![](sequences/images/GetCar.svg)
+Add Feature Diagram\n
+![](sequences/images/AddFeature.svg)\n
 
-Get Car Differences Diagram
-![](sequences/images/GetCarDifferences.svg)
+Get Car Sequence Diagram\n
+![](sequences/images/GetCar.svg)\n
 
-Get Multple Cars Sequence Diagram
-![](sequences/images/GetMultipleCars.svg)
+Get Car Differences Diagram\n
+![](sequences/images/GetCarDifferences.svg)\n
 
-Get Similar Cars Sequence Diagram
-![](sequences/images/GetSimilarCars.svg)
+Get Multple Cars Sequence Diagram\n
+![](sequences/images/GetMultipleCars.svg)\n
+
+Get Similar Cars Sequence Diagram\n
+![](sequences/images/GetSimilarCars.svg)\n
 
