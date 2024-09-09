@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> CarManagement: Add Feature
+CarManagement -> CarData: Add Feature
+CarData -> CarData: Create Feature entity
+CarData -> FeatureRepository: Save feature
+FeatureRepository --> CarData: Success
+CarData --> CarManagement: Return success
+CarManagement --> User: Return success
+
+@enduml

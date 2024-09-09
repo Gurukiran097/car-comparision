@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> CarManagement: Add Car Variant
+CarManagement -> CarData: Add Car Variant
+CarData -> CarMetadataRepository: Get car
+CarMetadataRepository --> CarData: Return car
+alt car present
+CarData -> CarData: Create car variant entity
+CarData -> CarVariantRepository: Save car variant
+CarVariantRepository --> CarData: Success
+CarData --> CarManagement: Success
+CarManagement --> User: Success
+else car absent
+CarData --> CarManagement: Invalid car id
+CarManagement --> User:Invalid car id
+end
+
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> CarData: Get Car
+CarData -> CarVariantRepository: Get car by variant Id
+CarVariantRepository --> CarData: Car variant data
+alt car variant present
+CarData -> CarMetadataRepository: Get car metadata
+CarMetadataRepository --> CarData: Car metadata
+CarData -> CarFeatureRepository: Get car features
+CarFeatureRepository --> CarData: Car metadata
+CarData -> FeatureRepository: Get feature details
+FeatureRepository --> CarData: Return feature details
+CarData -> CarData: Wrap data into CarResponse
+CarData --> User: Return CarResponse
+else invalid car variant
+CarData --> User: Return Bad request
+end
+
+@enduml

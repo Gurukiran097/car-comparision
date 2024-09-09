@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> CarData: Get Car
+CarData -> CarVariantRepository: Get car by variant Id
+CarVariantRepository --> CarData: Car variant data
+alt car variant present
+CarData -> RedisRepository: Get similar cars
+RedisRepository --> CarData: Return similar car list
+CarData --> User: Return similar cars
+else invalid car variant
+CarData --> User: Return Bad request
+end
+
+@enduml

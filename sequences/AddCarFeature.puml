@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> CarManagement: Add Car Feature
+CarManagement -> CarData: Add Car Feature
+CarData -> CarVariantRepository: Get car variant
+CarVariantRepository --> CarData: Return car variant
+alt car variant present
+CarData -> FeatureRepository: Get feature
+FeatureRepository --> CarData: Return feature
+alt valid feature
+CarData -> CarFeatureRepository: Get car feature for given feature id
+CarFeatureRepository --> CarData: Return car feature
+alt feature already present in car
+CarData --> CarManagement: Return 409 Resource exists
+else feature absent in car
+CarData -> CarData: Create car feature entity
+CarData -> CarFeatureRepository: Save car feature
+CarFeatureRepository --> CarData: Success
+CarData --> CarManagement: Success
+CarManagement --> User: Success
+end
+else invalid feature
+CarData --> CarManagement: Invalid feature Id
+CarManagement --> User: Invalid feature Id
+end
+
+
+
+@enduml

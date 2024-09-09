@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> CarData: Get Cars
+CarData -> CarData: Verify car list size
+alt car list verified
+loop for each car
+CarData -> CarData: Get car by variant Id and add to list
+end
+CarData -> CarData: Filter out similar features
+CarData --> User: Return response
+else failure
+CarData --> User: Return Bad request
+end
+
+@enduml
