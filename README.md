@@ -1,8 +1,9 @@
 # car-comparision
 Car Comparision Module
 
-
+High Level Design </br>
 ![High Level Design](sequences/images/Car_management_HLD.svg "High Level Design")
+</br>
 
 
 ![Add Car Sequence Diagram](sequences/images/AddCar.svg)
