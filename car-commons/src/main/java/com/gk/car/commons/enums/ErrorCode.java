@@ -16,7 +16,8 @@ public enum ErrorCode {
   INVALID_CAR_VARIANT_ID("INVALID_CAR_VARIANT_ID", "Invalid car variant Id", HttpStatus.BAD_REQUEST),
   INVALID_CAR_VARIANT_SIZE_MIN("INVALID_CAR_VARIANT_SIZE_MIN", "Car variants should have atleast 2 cars", HttpStatus.BAD_REQUEST),
   INVALID_CAR_VARIANT_SIZE_MAX("INVALID_CAR_VARIANT_SIZE_MIN", "Car variants should have at max 3 cars", HttpStatus.BAD_REQUEST),
-  UNKNOWN_ERROR("UNKNOWN_ERROR", "Error not known", HttpStatus.INTERNAL_SERVER_ERROR)
+  UNKNOWN_ERROR("UNKNOWN_ERROR", "Error not known", HttpStatus.INTERNAL_SERVER_ERROR),
+  INVALID_CAR_ID("INVALID_CAR_ID", "Invalid car Id", HttpStatus.BAD_REQUEST),
   ;
 
   private final String errorCode;

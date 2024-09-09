@@ -39,3 +39,5 @@ spring:
       maxTotal: 10
       minIdle: 10
       maxIdle: 10
+
+urls.carDataUrl: http://localhost:3000

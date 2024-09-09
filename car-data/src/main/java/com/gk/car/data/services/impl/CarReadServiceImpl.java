@@ -70,6 +70,8 @@ public class CarReadServiceImpl implements CarReadService {
               .featureType(feature.getFeatureType())
               .featureId(feature.getFeatureId())
               .featureValue(carFeature.getFeatureValue())
+              .featureKey(feature.getFeatureKey())
+              .featureCategory(feature.getFeatureCategory())
           .build());
     }
     return CarVariantDto.builder()

@@ -1,6 +1,7 @@
-package com.gk.car.data.dto;
+package com.gk.car.commons.dto;
 
 import com.gk.car.commons.enums.CarType;
+import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +10,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class AddCarDto {
+public class AddCarDto implements Serializable {
 
   private String carName;
   private String manufacturer;

@@ -6,7 +6,7 @@ import com.gk.car.commons.constants.KafkaConstants;
 import com.gk.car.commons.dto.CarSimilarityUpdateDto;
 import com.gk.car.commons.enums.ErrorCode;
 import com.gk.car.commons.exceptions.GenericServiceException;
-import com.gk.car.data.services.impl.CarManagementServiceImpl;
+import com.gk.car.data.services.impl.CarWriteServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CarSimilarityUpdateListener {
 
-  private final CarManagementServiceImpl carManagementService;
+  private final CarWriteServiceImpl carManagementService;
 
   private final ObjectMapper objectMapper;
 

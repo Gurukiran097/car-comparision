@@ -18,5 +18,7 @@ public class CarFeatureDto implements Serializable {
   private FeatureType featureType;
   private String featureName;
   private Integer featureValue;
+  private String featureKey;
+  private String featureCategory;
   private String featureId;
 }
