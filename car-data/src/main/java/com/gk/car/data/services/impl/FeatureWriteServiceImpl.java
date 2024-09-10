@@ -18,7 +18,7 @@ public class FeatureWriteServiceImpl implements FeatureWriteService {
 
 
   @Override
-  public String addFeature(AddFeatureDto addFeatureDto) {
+  public void addFeature(AddFeatureDto addFeatureDto) {
     log.info("Add car feature {}", addFeatureDto);
     FeatureEntity feature = FeatureEntity.builder()
         .featureId(IdUtil.generateUUID())
@@ -28,6 +28,5 @@ public class FeatureWriteServiceImpl implements FeatureWriteService {
         .featureCategory(addFeatureDto.getFeatureCategory())
         .build();
     featureRepository.save(feature);
-    return feature.getFeatureId();
   }
 }

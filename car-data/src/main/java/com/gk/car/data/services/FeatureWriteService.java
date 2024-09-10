@@ -4,5 +4,5 @@ import com.gk.car.commons.dto.AddFeatureDto;
 
 public interface FeatureWriteService {
 
-  String addFeature(AddFeatureDto addFeatureDto);
+  void addFeature(AddFeatureDto addFeatureDto);
 }
