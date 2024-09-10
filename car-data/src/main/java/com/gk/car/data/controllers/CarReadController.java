@@ -7,6 +7,7 @@ import com.gk.car.data.services.CarReadService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class CarReadController {
   private final CarReadService carReadService;
 
   @GetMapping("/{carVariantId}")
-  public CarVariantDto getCar(@RequestParam String carVariantId) {
+  public CarVariantDto getCar(@PathVariable String carVariantId) {
     return carReadService.getCar(carVariantId);
   }
 
@@ -36,7 +37,7 @@ public class CarReadController {
   }
 
   @GetMapping("/similar/{carVariantId}")
-  public CarSimilarityDto getCarDifferences(@RequestParam String carVariantId) {
+  public CarSimilarityDto getCarDifferences(@PathVariable String carVariantId) {
     return carReadService.getSimilarCars(carVariantId);
   }
 

@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -23,18 +24,23 @@ import lombok.NoArgsConstructor;
 public class FeatureEntity extends BaseEntity{
 
   @Column(name = "feature_id")
+  @NonNull
   private String featureId;
 
   @Column(name = "feature_name")
+  @NonNull
   private String featureName;
 
   @Column(name = "feature_key")
+  @NonNull
   private String featureKey;
 
   @Column(name = "feature_category")
+  @NonNull
   private String featureCategory;
 
   @Column(name = "feature_type")
+  @NonNull
   private FeatureType featureType;
 
 }

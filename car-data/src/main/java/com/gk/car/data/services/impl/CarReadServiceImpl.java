@@ -50,8 +50,10 @@ public class CarReadServiceImpl implements CarReadService {
     if(variantEntityOptional.isEmpty()) {
       throw new GenericServiceException(ErrorCode.INVALID_CAR_VARIANT_ID);
     }
+    log.info("Car variant entity {}", variantEntityOptional);
     CarVariantEntity carVariant = variantEntityOptional.get();
     Optional<CarMetadataEntity> carMetadataEntityOptional = carMetadataRepository.findByCarId(carVariant.getCarId());
+    log.info("Car metadata entity {}", carMetadataEntityOptional);
     if(carMetadataEntityOptional.isEmpty()) {
       throw new GenericServiceException(ErrorCode.INVALID_CAR_VARIANT_ID);
     }
