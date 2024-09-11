@@ -3,7 +3,9 @@ package com.gk.car.similarity.strategies.impl;
 import static com.gk.car.similarity.constants.Constants.LABEL_SIMILARITY_STRATEGY;
 
 import com.gk.car.commons.entities.CarFeatureEntity;
+import com.gk.car.commons.enums.ErrorCode;
 import com.gk.car.commons.enums.FeatureType;
+import com.gk.car.commons.exceptions.GenericServiceException;
 import com.gk.car.commons.repository.CarFeatureRepository;
 import com.gk.car.similarity.dto.CarSimilarityInputDto;
 import com.gk.car.similarity.dto.CarSimilarityInputItemDto;
@@ -17,10 +19,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -29,10 +33,14 @@ public class LabelCarSimilarityStrategy implements CarSimilarityStrategy {
 
   private final CarFeatureRepository carFeatureRepository;
 
-  private final int similarityLimit = 10; // PARAMETERIZE IT
+  @Value("${car.similarity.limit:10}")
+  private int similarityLimit;
 
   @Override
   public CarSimilarityOutputDto findSimilarCars(CarSimilarityInputDto carSimilarityInputDto) {
+    if(Objects.isNull(carSimilarityInputDto) || Objects.isNull(carSimilarityInputDto.getCars()) || carSimilarityInputDto.getCars().isEmpty()) {
+      return CarSimilarityOutputDto.builder().similarityMap(new HashMap<>()).build();
+    }
     Map<String, Set<CarFeatureEntity>> featureMap = processVariants(carSimilarityInputDto);
     Map<String, List<CarSimilarityOutputItemDto>> similarCars = new HashMap<>();
     for(String first : featureMap.keySet()) {
@@ -41,7 +49,14 @@ public class LabelCarSimilarityStrategy implements CarSimilarityStrategy {
       for(String second: featureMap.keySet()) {
         if(first.equals(second)) continue;
         int score = findScore(featureMap.get(first), featureMap.get(second));
-        if(similarityItems.size() < similarityLimit || similarityItems.peek().getScore() < score) {
+        if(score == 0) continue;
+        if(similarityItems.size() < similarityLimit) {
+          similarityItems.add(LabelBasedCarSimilarityItem.builder()
+                  .carVariantId(second)
+                  .score(score)
+              .build());
+        }else if(similarityItems.peek().getScore() < score) {
+          similarityItems.poll();
           similarityItems.add(LabelBasedCarSimilarityItem.builder()
                   .carVariantId(second)
                   .score(score)

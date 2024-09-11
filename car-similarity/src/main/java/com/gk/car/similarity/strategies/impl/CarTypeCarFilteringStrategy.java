@@ -13,10 +13,12 @@ import com.gk.car.similarity.strategies.CarFilteringStrategy;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component(CAR_TYPE_FILTER_STRATEGY)
+@Slf4j
 public class CarTypeCarFilteringStrategy implements CarFilteringStrategy {
 
   private final CarMetadataRepository carMetadataRepository;
@@ -31,8 +33,10 @@ public class CarTypeCarFilteringStrategy implements CarFilteringStrategy {
       if(cars.isEmpty()) continue;
       List<String> carIds = cars.stream().map(CarMetadataEntity::getCarId).toList();
       List<CarVariantEntity> carVariants = carVariantRepository.findAllByCarIdIn(carIds);
+      if(carVariants.isEmpty()) continue;
       carMetadataList.add(carVariants.stream().map(car -> CarFilteringItemDto.builder().carVariantId(car.getVariantId()).build()).toList());
     }
+    log.info("Filtered cars based on car type {}", carMetadataList);
     return CarFilteringDto.builder().cars(carMetadataList).build();
   }
 }

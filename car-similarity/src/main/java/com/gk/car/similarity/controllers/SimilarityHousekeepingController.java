@@ -27,21 +27,12 @@ public class SimilarityHousekeepingController {
   private final CarSimilarityService carSimilarityService;
 
   @GetMapping(value = "/filter")
-  private CarFilteringDto fetchFilteredCars() {
+  public CarFilteringDto fetchFilteredCars() {
     return carFilteringStrategy.filterCars();
   }
 
-  @GetMapping(value = "/similar")
-  private CarSimilarityOutputDto findSimilarCars() {
-    CarFilteringDto carFilteringDto = carFilteringStrategy.filterCars();
-    CarSimilarityInputDto carSimilarityInputDto = CarSimilarityInputDto.builder()
-        .cars(carFilteringDto.getCars().get(0).stream().map(car -> CarSimilarityInputItemDto.builder().carVariantId(car.getCarVariantId()).build()).toList())
-        .build();
-    return carSimilarityStrategy.findSimilarCars(carSimilarityInputDto);
-  }
-
   @PostMapping(value = "/filter")
-  private void filterAndFindSimilar() {
+  public void filterAndFindSimilar() {
     carSimilarityService.calculateSimilarities();
   }
 }

@@ -31,5 +31,5 @@ public class CarFeatureEntity extends BaseEntity {
   private FeatureType featureType;
 
   @Column(name = "feature_value")
-  private int featureValue;
+  private Integer featureValue;
 }

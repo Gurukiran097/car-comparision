@@ -41,3 +41,8 @@ spring:
       maxIdle: 10
 
 urls.carDataUrl: http://localhost:3000
+car:
+  filter.strategy: CarTypeFilterStrategy
+  similarity:
+    limit: 10
+    strategy: LabelBasedSimilarityStrategy
