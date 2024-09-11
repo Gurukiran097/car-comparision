@@ -64,27 +64,9 @@ public class CarWriteServiceImpl implements CarWriteService {
             .imageUrl(carVariantDto.getImageUrl())
             .build();
         variants.add(carVariantEntity);
-
         if(Objects.nonNull(carVariantDto.getFeatures())) {
-          for(AddCarFeatureDto carFeatureDto : carVariantDto.getFeatures()) {
-            Optional<FeatureEntity> featureEntityOptional = featureRepository.findByFeatureId(carFeatureDto.getFeatureId());
-            if(featureEntityOptional.isEmpty()) {
-              throw new GenericServiceException(ErrorCode.INVALID_FEATURE);
-            }
-            FeatureEntity feature = featureEntityOptional.get();
-            CarFeatureEntity carFeatureEntity = CarFeatureEntity.builder()
-                .carVariantId(carVariantEntity.getVariantId())
-                .featureId(feature.getFeatureId())
-                .featureType(feature.getFeatureType())
-                .build();
-            if(FeatureType.NUMERICAL.equals(feature.getFeatureType())) {
-              if(Objects.isNull(carFeatureDto.getFeatureValue())) {
-                throw new GenericServiceException(ErrorCode.INVALID_FEATURE_CONFIGURATION);
-              }
-              carFeatureEntity.setFeatureValue(carFeatureDto.getFeatureValue());
-            }
-            carFeatures.add(carFeatureEntity);
-          }
+          List<CarFeatureEntity> variantFeatures = buildFeatureEntities(carVariantDto.getFeatures(), carVariantEntity.getVariantId());
+          carFeatures.addAll(variantFeatures);
         }
       }
     }
@@ -106,31 +88,11 @@ public class CarWriteServiceImpl implements CarWriteService {
         .variantId(IdUtil.generateUUID())
         .imageUrl(carVariantDto.getImageUrl())
         .build();
-    List<CarFeatureEntity> carFeatures = new ArrayList<>();
     if(Objects.nonNull(carVariantDto.getFeatures())) {
-      for(AddCarFeatureDto carFeatureDto : carVariantDto.getFeatures()) {
-        Optional<FeatureEntity> featureEntityOptional = featureRepository.findByFeatureId(carFeatureDto.getFeatureId());
-        if(featureEntityOptional.isEmpty()) {
-          throw new GenericServiceException(ErrorCode.INVALID_FEATURE);
-        }
-        FeatureEntity feature = featureEntityOptional.get();
-        CarFeatureEntity carFeatureEntity = CarFeatureEntity.builder()
-            .carVariantId(carVariantEntity.getVariantId())
-            .featureId(feature.getFeatureId())
-            .featureType(feature.getFeatureType())
-            .build();
-        if(FeatureType.NUMERICAL.equals(feature.getFeatureType())) {
-          if(Objects.isNull(carFeatureDto.getFeatureValue())) {
-            throw new GenericServiceException(ErrorCode.INVALID_FEATURE_CONFIGURATION);
-          }
-          carFeatureEntity.setFeatureValue(carFeatureDto.getFeatureValue());
-        }
-        carFeatures.add(carFeatureEntity);
-      }
+      List<CarFeatureEntity> carFeatures = buildFeatureEntities(carVariantDto.getFeatures(), carVariantEntity.getVariantId());
+      carFeatureRepository.saveAll(carFeatures);
     }
-
     carVariantRepository.save(carVariantEntity);
-    carFeatureRepository.saveAll(carFeatures);
     return carVariantEntity.getVariantId();
   }
 
@@ -140,6 +102,25 @@ public class CarWriteServiceImpl implements CarWriteService {
     if(carVariantEntityOptional.isEmpty()) {
       throw new GenericServiceException(ErrorCode.INVALID_CAR_VARIANT_ID);
     }
+    CarFeatureEntity carFeatureEntity = buildFeatureEntity(carFeatureDto, carVariantId);
+    carFeatureRepository.save(carFeatureEntity);
+  }
+
+  @Override
+  public void updateSimilarCars(CarSimilarityUpdateDto carSimilarityUpdateDto) {
+    redisRepository.clearAndSave(carSimilarityUpdateDto.getCarVariantId(), carSimilarityUpdateDto.getSimilarVariants());
+  }
+
+  private List<CarFeatureEntity> buildFeatureEntities(List<AddCarFeatureDto> carFeatureDtos, String carVariantId) {
+    List<CarFeatureEntity> carFeatureEntities = new ArrayList<>();
+    for(AddCarFeatureDto carFeatureDto : carFeatureDtos) {
+      CarFeatureEntity carFeatureEntity = buildFeatureEntity(carFeatureDto, carVariantId);
+      carFeatureEntities.add(carFeatureEntity);
+    }
+    return carFeatureEntities;
+  }
+
+  private CarFeatureEntity buildFeatureEntity(AddCarFeatureDto carFeatureDto, String carVariantId) {
     Optional<FeatureEntity> featureEntityOptional = featureRepository.findByFeatureId(carFeatureDto.getFeatureId());
     if(featureEntityOptional.isEmpty()) {
       throw new GenericServiceException(ErrorCode.INVALID_FEATURE);
@@ -156,11 +137,6 @@ public class CarWriteServiceImpl implements CarWriteService {
       }
       carFeatureEntity.setFeatureValue(carFeatureDto.getFeatureValue());
     }
-    carFeatureRepository.save(carFeatureEntity);
-  }
-
-  @Override
-  public void updateSimilarCars(CarSimilarityUpdateDto carSimilarityUpdateDto) {
-    redisRepository.clearAndSave(carSimilarityUpdateDto.getCarVariantId(), carSimilarityUpdateDto.getSimilarVariants());
+    return carFeatureEntity;
   }
 }

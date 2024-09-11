@@ -1,4 +1,4 @@
-package com.gk.car.controllers;
+package com.gk.car.data.test.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import com.fasterxml.jackson.databind.ObjectMapper;

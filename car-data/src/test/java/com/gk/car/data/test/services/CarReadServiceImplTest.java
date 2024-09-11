@@ -1,21 +1,15 @@
-package com.gk.car.services;
+package com.gk.car.data.test.services;
 
 import com.gk.car.commons.entities.CarFeatureEntity;
 import com.gk.car.commons.entities.CarMetadataEntity;
 import com.gk.car.commons.entities.CarVariantEntity;
 import com.gk.car.commons.entities.FeatureEntity;
-import com.gk.car.commons.enums.ErrorCode;
 import com.gk.car.commons.exceptions.GenericServiceException;
 import com.gk.car.commons.repository.CarFeatureRepository;
 import com.gk.car.commons.repository.CarMetadataRepository;
 import com.gk.car.commons.repository.CarVariantRepository;
 import com.gk.car.commons.repository.FeatureRepository;
-import com.gk.car.data.dto.CarFeatureDto;
-import com.gk.car.data.dto.CarSimilarityDto;
-import com.gk.car.data.dto.CarVariantDto;
-import com.gk.car.data.dto.CarVariantListDto;
 import com.gk.car.data.repository.RedisRepository;
-import com.gk.car.data.services.CarReadService;
 import com.gk.car.data.services.impl.CarReadServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,6 +71,14 @@ class CarReadServiceImplTest {
   }
 
   @Test
+  void getCar_withInvalidCar_throwsException() {
+    when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.of(new CarVariantEntity()));
+    when(carMetadataRepository.findByCarId(anyString())).thenReturn(Optional.empty());
+
+    assertThrows(GenericServiceException.class, () -> carReadService.getCar("invalid"));
+  }
+
+  @Test
   void getCars_returnsCarVariantListDto() {
     CarVariantEntity carVariantEntity = new CarVariantEntity();
     carVariantEntity.setCarId("1");
@@ -113,6 +115,16 @@ class CarReadServiceImplTest {
   @Test
   void getCarDifferences_withInvalidList_throwsException() {
     assertThrows(GenericServiceException.class, () -> carReadService.getCarDifferences(List.of("1")));
+  }
+
+  @Test
+  void getCarDifferences_withListNull_throwsException() {
+    assertThrows(GenericServiceException.class, () -> carReadService.getCarDifferences(null));
+  }
+
+  @Test
+  void getCarDifferences_withListSmaller_throwsException() {
+    assertThrows(GenericServiceException.class, () -> carReadService.getCarDifferences(List.of()));
   }
 
   @Test

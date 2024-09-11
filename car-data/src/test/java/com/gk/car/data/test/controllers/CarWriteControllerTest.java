@@ -1,4 +1,4 @@
-package com.gk.car.controllers;
+package com.gk.car.data.test.controllers;
 
 import com.gk.car.commons.dto.AddCarDto;
 import com.gk.car.commons.dto.AddCarFeatureDto;

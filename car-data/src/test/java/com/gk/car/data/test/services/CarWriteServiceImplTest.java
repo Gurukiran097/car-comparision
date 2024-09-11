@@ -1,4 +1,4 @@
-package com.gk.car.services;
+package com.gk.car.data.test.services;
 
 import com.gk.car.commons.dto.AddCarDto;
 import com.gk.car.commons.dto.AddCarFeatureDto;
@@ -8,7 +8,6 @@ import com.gk.car.commons.entities.CarFeatureEntity;
 import com.gk.car.commons.entities.CarMetadataEntity;
 import com.gk.car.commons.entities.CarVariantEntity;
 import com.gk.car.commons.entities.FeatureEntity;
-import com.gk.car.commons.enums.ErrorCode;
 import com.gk.car.commons.enums.FeatureType;
 import com.gk.car.commons.exceptions.GenericServiceException;
 import com.gk.car.commons.repository.CarFeatureRepository;
@@ -17,7 +16,6 @@ import com.gk.car.commons.repository.CarVariantRepository;
 import com.gk.car.commons.repository.FeatureRepository;
 import com.gk.car.data.repository.RedisRepository;
 import com.gk.car.data.services.impl.CarWriteServiceImpl;
-import com.gk.car.data.utils.IdUtil;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,8 +60,38 @@ class CarWriteServiceImplTest {
     when(carMetadataRepository.save(any(CarMetadataEntity.class))).thenReturn(new CarMetadataEntity());
     when(carVariantRepository.saveAll(any())).thenReturn(null);
     when(carFeatureRepository.saveAll(any())).thenReturn(null);
+    when(featureRepository.findByFeatureId(anyString())).thenReturn(Optional.of(new FeatureEntity()));
 
     AddCarDto addCarDto = new AddCarDto();
+    AddCarVariantDto addCarVariantDto = new AddCarVariantDto();
+    addCarDto.setVariants(List.of(addCarVariantDto));
+    AddCarFeatureDto addCarFeatureDto = new AddCarFeatureDto();
+    addCarFeatureDto.setFeatureId("1");
+    addCarVariantDto.setFeatures(List.of(addCarFeatureDto));
+    carWriteService.addCar(addCarDto);
+  }
+
+  @Test
+  void addCar_withNullVariants_returnsCarId() {
+    when(carMetadataRepository.save(any(CarMetadataEntity.class))).thenReturn(new CarMetadataEntity());
+    when(carVariantRepository.saveAll(any())).thenReturn(null);
+    when(carFeatureRepository.saveAll(any())).thenReturn(null);
+    when(featureRepository.findByFeatureId(anyString())).thenReturn(Optional.of(new FeatureEntity()));
+
+    AddCarDto addCarDto = new AddCarDto();
+    carWriteService.addCar(addCarDto);
+  }
+
+  @Test
+  void addCar_withNullFeatures_returnsCarId() {
+    when(carMetadataRepository.save(any(CarMetadataEntity.class))).thenReturn(new CarMetadataEntity());
+    when(carVariantRepository.saveAll(any())).thenReturn(null);
+    when(carFeatureRepository.saveAll(any())).thenReturn(null);
+    when(featureRepository.findByFeatureId(anyString())).thenReturn(Optional.of(new FeatureEntity()));
+
+    AddCarDto addCarDto = new AddCarDto();
+    AddCarVariantDto addCarVariantDto = new AddCarVariantDto();
+    addCarDto.setVariants(List.of(addCarVariantDto));
     carWriteService.addCar(addCarDto);
   }
 
@@ -81,12 +109,27 @@ class CarWriteServiceImplTest {
   }
 
   @Test
+  void addVariant_withFeatures_returnsVariantId() {
+    when(carMetadataRepository.findByCarId(anyString())).thenReturn(Optional.of(new CarMetadataEntity()));
+    when(carVariantRepository.save(any(CarVariantEntity.class))).thenReturn(new CarVariantEntity());
+    when(carFeatureRepository.saveAll(any())).thenReturn(null);
+    when(featureRepository.findByFeatureId(anyString())).thenReturn(Optional.of(new FeatureEntity()));
+
+    AddCarVariantDto addCarVariantDto = new AddCarVariantDto();
+    AddCarFeatureDto addCarFeatureDto = new AddCarFeatureDto();
+    addCarFeatureDto.setFeatureId("1");
+    addCarVariantDto.setFeatures(List.of(addCarFeatureDto));
+    carWriteService.addVariant(addCarVariantDto, "1");
+  }
+
+  @Test
   void addVariant_returnsVariantId() {
     when(carMetadataRepository.findByCarId(anyString())).thenReturn(Optional.of(new CarMetadataEntity()));
     when(carVariantRepository.save(any(CarVariantEntity.class))).thenReturn(new CarVariantEntity());
     when(carFeatureRepository.saveAll(any())).thenReturn(null);
 
     AddCarVariantDto addCarVariantDto = new AddCarVariantDto();
+
     carWriteService.addVariant(addCarVariantDto, "1");
   }
 
@@ -112,9 +155,42 @@ class CarWriteServiceImplTest {
   }
 
   @Test
+  void addCarFeature_withNumericalFeature_returnsSuccess() {
+    FeatureEntity feature = new FeatureEntity();
+    feature.setFeatureType(FeatureType.NUMERICAL);
+    when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.of(new CarVariantEntity()));
+    when(featureRepository.findByFeatureId(anyString())).thenReturn(Optional.of(feature));
+
+    AddCarFeatureDto addCarFeatureDto = new AddCarFeatureDto();
+    addCarFeatureDto.setFeatureId("1");
+    addCarFeatureDto.setFeatureValue(10);
+    carWriteService.addCarFeature(addCarFeatureDto, "1");
+  }
+
+  @Test
   void addCarFeature_withInvalidFeature_throwsException() {
     when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.of(new CarVariantEntity()));
     when(featureRepository.findByFeatureId(anyString())).thenReturn(Optional.empty());
+
+    AddCarFeatureDto addCarFeatureDto = new AddCarFeatureDto();
+    assertThrows(GenericServiceException.class, () -> carWriteService.addCarFeature(addCarFeatureDto, "1"));
+  }
+
+  @Test
+  void addCarFeature_withInvalidFeatureType_throwsException() {
+    FeatureEntity feature = new FeatureEntity();
+    feature.setFeatureType(FeatureType.NUMERICAL);
+    when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.of(new CarVariantEntity()));
+    when(featureRepository.findByFeatureId(anyString())).thenReturn(Optional.of(feature));
+
+    AddCarFeatureDto addCarFeatureDto = new AddCarFeatureDto();
+    addCarFeatureDto.setFeatureId("1");
+    assertThrows(GenericServiceException.class, () -> carWriteService.addCarFeature(addCarFeatureDto, "1"));
+  }
+
+  @Test
+  void addCarFeature_withInvalidVariant_throwsException() {
+    when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.empty());
 
     AddCarFeatureDto addCarFeatureDto = new AddCarFeatureDto();
     assertThrows(GenericServiceException.class, () -> carWriteService.addCarFeature(addCarFeatureDto, "1"));
