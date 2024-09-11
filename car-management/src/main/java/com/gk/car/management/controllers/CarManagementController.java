@@ -6,6 +6,7 @@ import com.gk.car.commons.dto.AddCarVariantDto;
 import com.gk.car.management.services.CarManagementService;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,12 @@ public class CarManagementController {
   }
 
   @PostMapping(value = "/variant/{carId}")
-  public void addCarVariant(@RequestBody AddCarVariantDto addCarVariantDto, @RequestParam String carId) {
+  public void addCarVariant(@RequestBody AddCarVariantDto addCarVariantDto, @PathVariable String carId) {
     carManagementService.addVariant(addCarVariantDto, carId);
   }
 
   @PostMapping(value = "/feature/{carVariantId}")
-  public void addCarFeature(@RequestBody AddCarFeatureDto carFeatureDto, @RequestParam String carVariantId) {
+  public void addCarFeature(@RequestBody AddCarFeatureDto carFeatureDto, @PathVariable String carVariantId) {
     carManagementService.addCarFeature(carFeatureDto, carVariantId);
   }
 
