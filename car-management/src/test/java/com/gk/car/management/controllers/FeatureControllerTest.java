@@ -40,4 +40,5 @@ class FeatureControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
         verify(featureService).addFeature(any(AddFeatureDto.class));
     }
+
 }
