@@ -25,14 +25,14 @@ public class CarManagementController {
 
   @PostMapping(value = "/")
   @SecurityRequirement(name = OPEN_API_SCHEME)
-  public void addCar(@RequestBody AddCarDto addCarDto) {
-    carManagementService.addCar(addCarDto);
+  public String addCar(@RequestBody AddCarDto addCarDto) {
+    return carManagementService.addCar(addCarDto);
   }
 
   @PostMapping(value = "/variant/{carId}")
   @SecurityRequirement(name = OPEN_API_SCHEME)
-  public void addCarVariant(@RequestBody AddCarVariantDto addCarVariantDto, @PathVariable String carId) {
-    carManagementService.addVariant(addCarVariantDto, carId);
+  public String addCarVariant(@RequestBody AddCarVariantDto addCarVariantDto, @PathVariable String carId) {
+    return carManagementService.addVariant(addCarVariantDto, carId);
   }
 
   @PostMapping(value = "/feature/{carVariantId}")

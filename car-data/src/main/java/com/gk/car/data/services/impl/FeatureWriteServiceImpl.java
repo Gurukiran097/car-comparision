@@ -21,7 +21,7 @@ public class FeatureWriteServiceImpl implements FeatureWriteService {
 
 
   @Override
-  public void addFeature(AddFeatureDto addFeatureDto) {
+  public String addFeature(AddFeatureDto addFeatureDto) {
     log.info("Add car feature {}", addFeatureDto);
     if( Objects.isNull(addFeatureDto) || Objects.isNull(addFeatureDto.getFeatureName())
         || Objects.isNull(addFeatureDto.getFeatureType()) || Objects.isNull(addFeatureDto.getFeatureKey())
@@ -37,5 +37,6 @@ public class FeatureWriteServiceImpl implements FeatureWriteService {
         .featureCategory(addFeatureDto.getFeatureCategory())
         .build();
     featureRepository.save(feature);
+    return feature.getFeatureId();
   }
 }

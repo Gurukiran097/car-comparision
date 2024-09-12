@@ -7,9 +7,9 @@ import com.gk.car.commons.dto.AddCarDto;
 
 public interface CarManagementService {
 
-  void addCar(AddCarDto addCarDto);
+  String addCar(AddCarDto addCarDto);
 
-  void addVariant(AddCarVariantDto addCarVariantDto, String carId);
+  String addVariant(AddCarVariantDto addCarVariantDto, String carId);
 
   void addCarFeature(AddCarFeatureDto addCarFeatureDto, String carVariantId);
 }

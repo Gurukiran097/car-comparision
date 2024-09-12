@@ -22,12 +22,12 @@ public class CarManagementServiceImpl implements CarManagementService {
   private final CarDataClient carDataClient;
 
   @Override
-  public void addCar(AddCarDto addCarDto) {
+  public String addCar(AddCarDto addCarDto) {
     try{
       if( Objects.isNull(addCarDto) || addCarDto.getCarName() == null || addCarDto.getCarType() == null || addCarDto.getManufacturer() == null) {
         throw new GenericServiceException(ErrorCode.INVALID_DATA, "Car name, type and manufacturer are mandatory");
       }
-      carDataClient.addCar(addCarDto);
+      return carDataClient.addCar(addCarDto);
     }catch (FeignClientException e) {
       log.error("Exception while calling car data client", e);
       log.error("Exception inside ", e.getCause());
@@ -36,12 +36,12 @@ public class CarManagementServiceImpl implements CarManagementService {
   }
 
   @Override
-  public void addVariant(AddCarVariantDto addCarVariantDto, String carId) {
+  public String addVariant(AddCarVariantDto addCarVariantDto, String carId) {
     try{
       if(Objects.isNull(addCarVariantDto) || addCarVariantDto.getVariantName() == null || addCarVariantDto.getImageUrl() == null || Objects.isNull(carId)) {
         throw new GenericServiceException(ErrorCode.INVALID_DATA, "Variant name and type are mandatory");
       }
-      carDataClient.addCarVariant(carId, addCarVariantDto);
+      return carDataClient.addCarVariant(carId, addCarVariantDto);
     }catch (FeignClientException e) {
       log.error("Exception while calling car data client", e);
       log.error("Exception inside ", e.getCause());

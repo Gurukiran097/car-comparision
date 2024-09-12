@@ -3,6 +3,8 @@ package com.gk.car.commons.entities;
 import com.gk.car.commons.enums.FeatureType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +30,7 @@ public class CarFeatureEntity extends BaseEntity {
   private String featureId;
 
   @Column(name = "feature_type")
+  @Enumerated(EnumType.STRING)
   private FeatureType featureType;
 
   @Column(name = "feature_value")

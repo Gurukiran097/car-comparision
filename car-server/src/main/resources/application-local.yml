@@ -41,6 +41,7 @@ spring:
       maxIdle: 10
 
 urls.carDataUrl: http://localhost:3000
+gcp.bucket.name: recon_test
 car:
   filter.strategy: CarTypeFilterStrategy
   similarity:

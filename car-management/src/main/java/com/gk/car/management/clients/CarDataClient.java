@@ -15,14 +15,14 @@ public interface CarDataClient {
       "Content-type: application/json",
       "Accept: */*",
   })
-  void addCar(AddCarDto addCarDto);
+  String addCar(AddCarDto addCarDto);
 
   @RequestLine("POST /v1/api/write/car/variant/{carId}")
   @Headers({
       "Content-type: application/json",
       "Accept: */*",
   })
-  void addCarVariant(@Param("carId") String carId,  AddCarVariantDto addCarVariantDto);
+  String addCarVariant(@Param("carId") String carId,  AddCarVariantDto addCarVariantDto);
 
   @RequestLine("POST /v1/api/write/car/feature/{carVariantId}")
   @Headers({
@@ -36,5 +36,5 @@ public interface CarDataClient {
       "Content-type: application/json",
       "Accept: */*",
   })
-  void addFeature(AddFeatureDto addFeatureDto);
+  String addFeature(AddFeatureDto addFeatureDto);
 }

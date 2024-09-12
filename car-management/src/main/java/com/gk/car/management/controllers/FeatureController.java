@@ -23,9 +23,9 @@ public class FeatureController {
 
   @PostMapping(value = "/")
   @SecurityRequirement(name = OPEN_API_SCHEME)
-  public void addFeature(@RequestBody AddFeatureDto addFeatureDto) {
+  public String addFeature(@RequestBody AddFeatureDto addFeatureDto) {
     log.info("Called with {}", addFeatureDto);
-    featureService.addFeature(addFeatureDto);
+    return featureService.addFeature(addFeatureDto);
   }
 
 

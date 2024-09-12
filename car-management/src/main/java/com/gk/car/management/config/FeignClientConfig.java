@@ -7,6 +7,7 @@ import feign.Request.Options;
 import feign.Retryer;
 import feign.Target;
 import feign.Target.HardCodedTarget;
+import feign.codec.StringDecoder;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.okhttp.OkHttpClient;
@@ -25,7 +26,7 @@ public class FeignClientConfig {
     return Feign.builder()
         .client(new OkHttpClient())
         .encoder(new JacksonEncoder())
-        .decoder(new JacksonDecoder())
+        .decoder(new StringDecoder())
         .options(new Options(10000, 10000))
         .retryer(Retryer.NEVER_RETRY)
         .target(new HardCodedTarget<>(CarDataClient.class, carDataUrl));

@@ -18,8 +18,8 @@ public class FeatureWriteController {
   private final FeatureWriteService featureWriteService;
 
   @PostMapping(value = "/")
-  private void addFeature(@RequestBody AddFeatureDto addFeatureDto) {
-    featureWriteService.addFeature(addFeatureDto);
+  private String addFeature(@RequestBody AddFeatureDto addFeatureDto) {
+    return featureWriteService.addFeature(addFeatureDto);
   }
 
 

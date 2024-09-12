@@ -19,13 +19,13 @@ public class FeatureServiceImpl implements FeatureService {
   private final CarDataClient carDataClient;
 
   @Override
-  public void addFeature(AddFeatureDto addFeatureDto) {
+  public String addFeature(AddFeatureDto addFeatureDto) {
     try{
       if (Objects.isNull(addFeatureDto) || Objects.isNull(addFeatureDto.getFeatureName()) || Objects.isNull(addFeatureDto.getFeatureType())
           || Objects.isNull(addFeatureDto.getFeatureKey()) || Objects.isNull(addFeatureDto.getFeatureCategory())) {
         throw new GenericServiceException(ErrorCode.INVALID_DATA, "Feature name, type, key and category are mandatory");
       }
-      carDataClient.addFeature(addFeatureDto);
+      return carDataClient.addFeature(addFeatureDto);
     }catch (FeignClientException e) {
       log.error("Exception while calling car data client", e);
       log.error("Exception inside ", e.getCause());
