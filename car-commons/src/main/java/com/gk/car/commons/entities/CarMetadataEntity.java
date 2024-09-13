@@ -5,7 +5,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +21,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-    name = "car_metadata"
+    name = "car_metadata",
+    indexes = {
+        @Index(name = "car_type_idx", columnList = "car_type")
+    },
+    uniqueConstraints = {
+        @UniqueConstraint(name = "car_id_udx", columnNames = {"car_id"})
+    }
 )
 public class CarMetadataEntity extends BaseEntity {
 

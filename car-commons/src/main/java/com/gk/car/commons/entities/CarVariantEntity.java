@@ -2,7 +2,9 @@ package com.gk.car.commons.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +18,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-    name = "car_variants"
+    name = "car_variants",
+    indexes = {
+        @Index(name = "car_id_idx", columnList = "car_id"),
+        @Index(name = "variant_id_idx", columnList = "variant_id"),
+    },
+    uniqueConstraints = {
+        @UniqueConstraint(name = "car_id_udx", columnNames = {"car_id"})
+    }
 )
 public class CarVariantEntity extends BaseEntity {
 

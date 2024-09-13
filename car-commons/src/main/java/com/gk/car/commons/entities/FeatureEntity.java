@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,10 @@ import lombok.NonNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(
-    name = "features"
+    name = "features",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "feature_id_udx", columnNames = {"feature_id"})
+    }
 )
 public class FeatureEntity extends BaseEntity{
 
