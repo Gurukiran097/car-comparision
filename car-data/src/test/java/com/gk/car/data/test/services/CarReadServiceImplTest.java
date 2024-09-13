@@ -9,8 +9,11 @@ import com.gk.car.commons.repository.CarFeatureRepository;
 import com.gk.car.commons.repository.CarMetadataRepository;
 import com.gk.car.commons.repository.CarVariantRepository;
 import com.gk.car.commons.repository.FeatureRepository;
+import com.gk.car.data.dto.CarFeatureDto;
+import com.gk.car.data.dto.CarVariantDto;
 import com.gk.car.data.repository.RedisRepository;
 import com.gk.car.data.services.impl.CarReadServiceImpl;
+import com.gk.car.data.utils.CarUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,8 +24,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class CarReadServiceImplTest {
@@ -45,47 +50,31 @@ class CarReadServiceImplTest {
   @InjectMocks
   private CarReadServiceImpl carReadService;
 
+  @Mock
+  private CarUtils carUtils;
+
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
   }
 
   @Test
-  void getCar_returnsCarVariantDto() {
-    CarVariantEntity carVariantEntity = new CarVariantEntity();
-    CarMetadataEntity carMetadataEntity = new CarMetadataEntity();
-    carVariantEntity.setCarId("1");
-    when(carMetadataRepository.findByCarId(anyString())).thenReturn(Optional.of(carMetadataEntity));
-    when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.of(carVariantEntity));
-    when(carFeatureRepository.findAllByCarVariantId(anyString())).thenReturn(List.of(new CarFeatureEntity()));
-    when(featureRepository.findAllByFeatureIdIn(anyList())).thenReturn(List.of(new FeatureEntity()));
+  void getCar_callsCarUtils() {
+    String carVariantId = "variant123";
+    CarVariantDto carVariantDto = new CarVariantDto();
 
-    carReadService.getCar("1");
+    when(carUtils.getCarFromDatabase(carVariantId)).thenReturn(carVariantDto);
+
+    carReadService.getCar(carVariantId);
+
+    verify(carUtils).getCarFromDatabase(carVariantId);
   }
 
-  @Test
-  void getCar_withInvalidId_throwsException() {
-    when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.empty());
 
-    assertThrows(GenericServiceException.class, () -> carReadService.getCar("invalid"));
-  }
-
-  @Test
-  void getCar_withInvalidCar_throwsException() {
-    when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.of(new CarVariantEntity()));
-    when(carMetadataRepository.findByCarId(anyString())).thenReturn(Optional.empty());
-
-    assertThrows(GenericServiceException.class, () -> carReadService.getCar("invalid"));
-  }
 
   @Test
   void getCars_returnsCarVariantListDto() {
-    CarVariantEntity carVariantEntity = new CarVariantEntity();
-    carVariantEntity.setCarId("1");
-    when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.of(carVariantEntity));
-    when(carMetadataRepository.findByCarId(anyString())).thenReturn(Optional.of(new CarMetadataEntity()));
-    when(carFeatureRepository.findAllByCarVariantId(anyString())).thenReturn(List.of(new CarFeatureEntity()));
-    when(featureRepository.findAllByFeatureIdIn(anyList())).thenReturn(List.of(new FeatureEntity()));
+    when(carUtils.getCarFromDatabase(anyString())).thenReturn(new CarVariantDto());
 
     carReadService.getCars(List.of("1", "2"));
   }
@@ -102,12 +91,9 @@ class CarReadServiceImplTest {
 
   @Test
   void getCarDifferences_returnsCarVariantListDto() {
-    CarVariantEntity carVariantEntity = new CarVariantEntity();
-    carVariantEntity.setCarId("1");
-    when(carVariantRepository.findByVariantId(anyString())).thenReturn(Optional.of(carVariantEntity));
-    when(carMetadataRepository.findByCarId(anyString())).thenReturn(Optional.of(new CarMetadataEntity()));
-    when(carFeatureRepository.findAllByCarVariantId(anyString())).thenReturn(List.of(new CarFeatureEntity()));
-    when(featureRepository.findAllByFeatureIdIn(anyList())).thenReturn(List.of(new FeatureEntity()));
+    CarVariantDto carVariantDto = new CarVariantDto();
+    carVariantDto.setFeatures(List.of(new CarFeatureDto()));
+    when(carUtils.getCarFromDatabase(anyString())).thenReturn(carVariantDto);
 
     carReadService.getCarDifferences(List.of("1", "2"));
   }
