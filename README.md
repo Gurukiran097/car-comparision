@@ -1,35 +1,99 @@
-# car-comparision
-Car Comparision Module
-
-High Level Design </br>
-![High Level Design](sequences/images/Car_management_HLD.svg "High Level Design")
-</br>
-
-Database Entity Diagram </br>
-![High Level Design](sequences/images/database_diagram_car.png "High Level Design")
-</br>
+# Car Comparision Module
 
 
-![Add Car Sequence Diagram](sequences/images/AddCar.svg)
 
 
-![Add Car Feature Diagram](sequences/images/AddCarFeature.svg)
+
+## HLD - High Level Design
 
 
-![Add Car Variant Diagram](sequences/images/AddCarVariant.svg)
+![HLD](images/hld-export-13-09-2024-20_58_29.png)
 
 
-![Add Feature Diagram](sequences/images/AddFeature.svg)
+
+## ERD - Entity Relationship Diagram
 
 
-![Get Car Sequence Diagram](sequences/images/GetCar.svg)
+![ERD](images/erd-export-13-09-2024-20_58_30.png)
 
 
-![Get Car Differences Diagram](sequences/images/GetCarDifferences.svg)
+
+## Sequence diagrams
 
 
-![Get Multple Cars Sequence Diagram](sequences/images/GetMultipleCars.svg)
+### Add Car
+![Add Car](images/add-car-export-13-09-2024-20_58_31.png)
 
 
-![Get Similar Cars Sequence Diagram](sequences/images/GetSimilarCars.svg)
+
+### Add car variant
+![Add Car Variant](images/add-car-variant-export-13-09-2024-20_58_32.png)
+
+
+
+### Add Feature
+![Add Feature](images/add-feature-export-13-09-2024-20_58_33.png)
+
+
+
+### Add Car Feature
+![Add Car](images/add-car-export-13-09-2024-20_58_34.png)
+
+
+
+### Cache
+![Cache](images/cache-export-13-09-2024-20_58_35.png)
+
+
+
+
+
+### Get Car
+![Get car](images/get-car-export-13-09-2024-20_58_36.png)
+
+###  
+### Car differences
+![Car differences](images/car-differences-export-13-09-2024-20_58_36.png)
+
+
+
+
+
+### Multiple cars
+![Multiple cars](images/multiple-cars-export-13-09-2024-20_58_37.png)
+
+
+
+### Car Similarity
+![Similarity](images/similarity-export-13-09-2024-20_58_38.png)
+
+
+
+
+
+## 
+
+
+
+
+
+
+
+
+
+
+## 
+
+
+
+
+
+
+
+
+
+
+
+
+
 

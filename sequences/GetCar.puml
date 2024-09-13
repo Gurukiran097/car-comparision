@@ -4,6 +4,11 @@
 autonumber
 
 User -> CarData: Get Car
+CarData -> CacheManager: Check cache for car
+alt cache hit
+CacheManager --> CarData: Return car data
+CarData --> User: Return car data
+else cache miss
 CarData -> CarVariantRepository: Get car by variant Id
 CarVariantRepository --> CarData: Car variant data
 alt car variant present
@@ -17,6 +22,7 @@ CarData -> CarData: Wrap data into CarResponse
 CarData --> User: Return CarResponse
 else invalid car variant
 CarData --> User: Return Bad request
+end
 end
 
 @enduml

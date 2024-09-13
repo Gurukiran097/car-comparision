@@ -1,0 +1,24 @@
+@startuml
+'autonumber
+
+title calculateSimilarities Function
+
+actor Cron
+
+Cron -> CarSimilarity: process cars and find similarities
+CarSimilarity -> CarFilteringStrategyFactory: Get filtering strategy
+CarFilteringStrategyFactory --> CarSimilarity: Return filtering strategy
+
+CarSimilarity -> CarSimilarityStrategyFactory: Get Similarity strategy
+CarSimilarityStrategyFactory --> CarSimilarity: Return similarity strategy
+
+CarSimilarity -> CarFilteringStrategy: Filter cars
+CarFilteringStrategy --> CarSimilarity: Return filtered cars
+
+loop for each car
+    CarSimilarity -> CarSimilarityStrategy: Find similar cars
+    CarSimilarityStrategy --> CarSimilarity: Return similarity map
+end
+CarSimilarity -> CarData: send similarity map via Kafka
+
+@enduml

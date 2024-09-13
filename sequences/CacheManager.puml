@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Service -> CacheManager: Check cache for data
+CacheManager --> InMemoryCache: Check cache for data
+alt in-memory cache hit
+InMemoryCache --> CacheManager: Return data
+CacheManager --> Service: Return data
+else in-memory cache miss
+CacheManager -> RedisCache: Check cache for data
+alt redis cache hit
+RedisCache --> CacheManager: Return data
+CacheManager -> InMemoryCache: Save data
+CacheManager --> Service: Return data
+else redis cache miss
+CacheManager -> Service: Cache miss
+end
+end
+
+@enduml
