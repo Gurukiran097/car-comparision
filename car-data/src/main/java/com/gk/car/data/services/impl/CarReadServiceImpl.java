@@ -55,6 +55,7 @@ public class CarReadServiceImpl implements CarReadService {
 
   @Override
   public CarVariantListDto getCars(List<String> carVariants) {
+    log.info("Fetching car variants {}", carVariants);
     verifyCarList(carVariants);
     List<CarVariantDto> variantDtos = new ArrayList<>();
     for(String car : carVariants) {
@@ -67,6 +68,7 @@ public class CarReadServiceImpl implements CarReadService {
 
   @Override
   public CarVariantListDto getCarDifferences(List<String> carVariants) {
+    log.info("Fetching car variant differences {}", carVariants);
     verifyCarList(carVariants);
     List<CarVariantDto> variantDtos = new ArrayList<>();
     for(String car : carVariants) {

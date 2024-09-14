@@ -61,6 +61,7 @@ public class CarSimilarityServiceImpl implements CarSimilarityService {
         throw new GenericServiceException(ErrorCode.UNKNOWN_ERROR, "Similar cars invalid");
       }
       for(String car : carSimilarityOutputDto.getSimilarityMap().keySet()) {
+        if(carSimilarityOutputDto.getSimilarityMap().get(car).isEmpty()) continue;
         List<String> similarVariants = carSimilarityOutputDto.getSimilarityMap().get(car).stream().map(
             CarSimilarityOutputItemDto::getCarVariantId).toList();
         kafkaPublisher.send(SIMILAR_CARS_TOPIC, CarSimilarityUpdateDto.builder()

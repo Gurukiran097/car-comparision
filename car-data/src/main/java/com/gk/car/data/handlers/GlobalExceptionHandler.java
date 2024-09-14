@@ -12,6 +12,6 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(GenericServiceException.class)
   public ResponseEntity<String> handleGenericServiceException(GenericServiceException genericServiceException) {
-    return ResponseEntity.status(genericServiceException.getErrorCode().getHttpStatus()).body(genericServiceException.getMessage());
+    return ResponseEntity.status(genericServiceException.getHttpStatus()).body(genericServiceException.getMessage());
   }
 }

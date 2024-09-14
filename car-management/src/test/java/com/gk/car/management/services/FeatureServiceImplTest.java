@@ -7,6 +7,8 @@ import com.gk.car.commons.exceptions.GenericServiceException;
 import com.gk.car.management.clients.CarDataClient;
 import com.gk.car.management.services.impl.FeatureServiceImpl;
 import feign.FeignException.FeignClientException;
+import feign.Request;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -74,7 +76,8 @@ class FeatureServiceImplTest {
     @Test
     void addFeature_whenFeignClientExceptionIsThrown_throwsGenericServiceException() {
         AddFeatureDto addFeatureDto = new AddFeatureDto("FeatureName", FeatureType.NUMERICAL, "FeatureKey", "FeatureCategory");
-        doThrow(FeignClientException.class).when(carDataClient).addFeature(addFeatureDto);
+        FeignClientException feignClientException = new FeignClientException.BadRequest("Bad Request", Request.create(Request.HttpMethod.GET, "", Map.of(), null, null, null), null, null);
+        doThrow(feignClientException).when(carDataClient).addFeature(addFeatureDto);
 
         assertThrows(GenericServiceException.class, () -> featureServiceImpl.addFeature(addFeatureDto));
     }

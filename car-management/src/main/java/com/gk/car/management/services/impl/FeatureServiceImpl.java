@@ -9,6 +9,7 @@ import feign.FeignException.FeignClientException;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,9 +28,8 @@ public class FeatureServiceImpl implements FeatureService {
       }
       return carDataClient.addFeature(addFeatureDto);
     }catch (FeignClientException e) {
-      log.error("Exception while calling car data client", e);
-      log.error("Exception inside ", e.getCause());
-      throw new GenericServiceException(ErrorCode.UNKNOWN_ERROR, e.getMessage());
+      log.error("Exception while calling car data client for adding feature", e);
+      throw new GenericServiceException(ErrorCode.UNKNOWN_ERROR, e.contentUTF8(), HttpStatus.valueOf(e.status()));
     }
   }
 }

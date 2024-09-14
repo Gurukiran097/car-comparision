@@ -66,7 +66,7 @@ public class LabelCarSimilarityStrategy implements CarSimilarityStrategy {
       List<CarSimilarityOutputItemDto> firstSimilarCars = new ArrayList<>();
       while (!similarityItems.isEmpty()) {
         LabelBasedCarSimilarityItem similarityItem = similarityItems.poll();
-        firstSimilarCars.add(CarSimilarityOutputItemDto.builder()
+        firstSimilarCars.add(0, CarSimilarityOutputItemDto.builder()
                 .carVariantId(similarityItem.getCarVariantId())
             .build());
       }

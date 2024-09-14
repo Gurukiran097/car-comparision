@@ -11,6 +11,8 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ContainerProperties.AckMode;
+import org.springframework.kafka.listener.DefaultErrorHandler;
+import org.springframework.util.backoff.FixedBackOff;
 
 @Configuration
 public class KafkaConsumerConfig {
@@ -39,6 +41,7 @@ public class KafkaConsumerConfig {
     factory.setConsumerFactory(consumerFactory());
     factory.setConcurrency(1);
     factory.setAutoStartup(true);
+    factory.setCommonErrorHandler(new DefaultErrorHandler(new FixedBackOff(0L,0L)));
     factory.getContainerProperties().setAckMode(AckMode.MANUAL_IMMEDIATE);
     return factory;
   }

@@ -8,7 +8,10 @@ import com.gk.car.commons.enums.ErrorCode;
 import com.gk.car.commons.exceptions.GenericServiceException;
 import com.gk.car.management.clients.CarDataClient;
 import com.gk.car.management.services.impl.CarManagementServiceImpl;
+import feign.FeignException;
 import feign.FeignException.FeignClientException;
+import feign.Request;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -67,9 +70,11 @@ class CarManagementServiceImplTest {
     }
 
     @Test
-    void addCar_whenFeignClientExceptionIsThrown_throwsGenericServiceException() {
+    void addCar_whenFeignExceptionIsThrown_throwsGenericServiceException() {
         AddCarDto addCarDto = new AddCarDto("CarName", "Manufacturer", CarType.COMPACT, null);
-        doThrow(FeignClientException.class).when(carDataClient).addCar(addCarDto);
+
+        FeignClientException feignClientException = new FeignClientException.BadRequest("Bad Request", Request.create(Request.HttpMethod.GET, "", Map.of(), null, null, null), null, null);
+        doThrow(feignClientException).when(carDataClient).addCar(addCarDto);
 
         assertThrows(GenericServiceException.class, () -> carManagementServiceImpl.addCar(addCarDto));
     }
@@ -114,7 +119,8 @@ class CarManagementServiceImplTest {
     void addVariant_whenFeignClientExceptionIsThrown_throwsGenericServiceException() {
         AddCarVariantDto addCarVariantDto = new AddCarVariantDto("VariantName", "ImageUrl", null);
         String carId = "1";
-        doThrow(FeignClientException.class).when(carDataClient).addCarVariant(carId, addCarVariantDto);
+        FeignClientException feignClientException = new FeignClientException.BadRequest("Bad Request", Request.create(Request.HttpMethod.GET, "", Map.of(), null, null, null), null, null);
+        doThrow(feignClientException).when(carDataClient).addCarVariant(carId, addCarVariantDto);
 
         assertThrows(GenericServiceException.class, () -> carManagementServiceImpl.addVariant(addCarVariantDto, carId));
     }
@@ -152,7 +158,8 @@ class CarManagementServiceImplTest {
     void addCarFeature_whenFeignClientExceptionIsThrown_throwsGenericServiceException() {
         AddCarFeatureDto addCarFeatureDto = new AddCarFeatureDto("FeatureId", null);
         String carVariantId = "1";
-        doThrow(FeignClientException.class).when(carDataClient).addCarFeature(carVariantId, addCarFeatureDto);
+        FeignClientException feignClientException = new FeignClientException.BadRequest("Bad Request", Request.create(Request.HttpMethod.GET, "", Map.of(), null, null, null), null, null);
+        doThrow(feignClientException).when(carDataClient).addCarFeature(carVariantId, addCarFeatureDto);
 
         assertThrows(GenericServiceException.class, () -> carManagementServiceImpl.addCarFeature(addCarFeatureDto, carVariantId));
     }
