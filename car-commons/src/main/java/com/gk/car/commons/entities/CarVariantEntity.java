@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
         @Index(name = "variant_id_idx", columnList = "variant_id"),
     },
     uniqueConstraints = {
-        @UniqueConstraint(name = "car_id_udx", columnNames = {"car_id"})
+        @UniqueConstraint(name = "variant_id_udx", columnNames = {"variant_id"})
     }
 )
 public class CarVariantEntity extends BaseEntity {
