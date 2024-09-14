@@ -63,22 +63,22 @@
 ## Sequence diagrams
 
 
-### Add Car
+### Add Car - POST - `/v1/api/management/car`
 ![Add Car](images/add-car-export-14-09-2024-14_57_51.png)
 
 
 
-### Add car variant
+### Add car variant - POST - `/v1/api/management/car/variant/{carId}`
 ![Add Car Variant](images/add-car-variant-export-14-09-2024-14_57_52.png)
 
 
 
-### Add Feature
+### Add Feature - POST - `/v1/api/management/feature`
 ![Add Feature](images/add-feature-export-14-09-2024-14_57_53.png)
 
 
 
-### Add Car Feature
+### Add Car Feature - `/v1/api/management/car/feature/{carVariantId}`
 ![Add Car](images/add-car-export-14-09-2024-14_57_54.png)
 
 
@@ -90,23 +90,23 @@
 
 
 
-### Get Car
+### Get Car - GET - `/v1/api/car/{carVariantId}`
 ![Get car](images/get-car-export-14-09-2024-14_57_56.png)
 
 ###  
-### Car differences
+### Car differences - POST - `/v1/api/car/compare/differences`
 ![Car differences](images/car-differences-export-14-09-2024-14_57_57.png)
 
 
 
 
 
-### Multiple cars
+### Multiple cars - POST - `/v1/api/car/compare`
 ![Multiple cars](images/multiple-cars-export-14-09-2024-14_57_58.png)
 
 
 
-### Car Similarity
+### Car Similarity - GET - `/v1/api/car/similar/{carVariantId}`
 ![Similarity](images/similarity-export-14-09-2024-14_57_59.png)
 
 
