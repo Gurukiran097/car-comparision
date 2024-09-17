@@ -22,7 +22,7 @@ public class TwoLayerCacheManager implements CacheManager {
 
   @Override
   public TwoLayerCache getCache(String name) {
-    return new TwoLayerCache(inMemoryCacheManager.getCache(name), redisCacheManager.getCache(name));
+    return new TwoLayerCache(inMemoryCacheManager.getCache(name), redisCacheManager.getCache(name), name);
   }
 
   @Override

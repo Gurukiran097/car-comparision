@@ -13,15 +13,17 @@ public class TwoLayerCache implements Cache {
 
   private final Cache inMemoryCache;
   private final Cache redisCache;
+  private final String name;
 
-  public TwoLayerCache(Cache inMemoryCache, Cache redisCache) {
+  public TwoLayerCache(Cache inMemoryCache, Cache redisCache, String name) {
     this.inMemoryCache = inMemoryCache;
     this.redisCache = redisCache;
+    this.name = name;
   }
 
   @Override
   public String getName() {
-    return inMemoryCache.getName();
+    return name;
   }
 
   @Override

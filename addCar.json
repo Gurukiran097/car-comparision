@@ -1,0 +1,23 @@
+{
+  "carName": "Sumo",
+  "manufacturer": "Tata",
+  "carType": "SUV",
+  "variants": [
+    {
+      "variantName": "Diesel Inn",
+      "imageUrl": "https://storage.googleapis.com/recon_test/13015ba8-4dc1-46b2-ae12-cde02c4741f0",
+      "features": [
+        {
+          "featureId": "4df2d9c8-cadc-4483-8505-08f3e263120b"
+        },
+        {
+          "featureId": "c06d722d-9e33-411e-9514-06f875b87fcb"
+        },
+        {
+          "featureId": "cdb71638-7a89-4da5-827f-fa2ebc13fe51",
+          "featureValue": 750
+        }
+      ]
+    }
+  ]
+}
